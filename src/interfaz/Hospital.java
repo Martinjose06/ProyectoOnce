@@ -6,6 +6,7 @@
 package interfaz;
 
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -59,6 +60,9 @@ public class Hospital extends javax.swing.JFrame {
         txtP.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPKeyTyped(evt);
             }
         });
         jPanel1.add(txtP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 110, -1));
@@ -121,46 +125,75 @@ public class Hospital extends javax.swing.JFrame {
 
     private void cmdCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCalcularActionPerformed
 
-        String r, r1, r2;
-        double p, g, pe, t;
-        
-        p = Double.parseDouble(txtP.getText());
-        
-        g = (p * 40) / 100;
-        pe = (p * 30) / 100;
-        t = (p * 30) / 100;
-        
-        r = String.valueOf(g);
-        r1 = String.valueOf(pe);
-        r2 = String.valueOf(t);
-        
-        lblG.setText(r);
-        lblP.setText(r1);
-        lblT.setText(r2);
-        
+        if (txtP.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No Ha Ingresado El Presupuesto", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtP.requestFocusInWindow();
+        } else if (txtP.getText().equalsIgnoreCase("0")) {
+            JOptionPane.showMessageDialog(this, "El Prespuesto Debe Ser Superior A 0", "ERROR", JOptionPane.ERROR_MESSAGE);
+            txtP.requestFocusInWindow();
+            txtP.selectAll();
+        } else {
+            String r, r1, r2;
+            double p, g, pe, t;
+
+            p = Double.parseDouble(txtP.getText());
+
+            g = (p * 40) / 100;
+            pe = (p * 30) / 100;
+            t = (p * 30) / 100;
+
+            r = String.valueOf(g);
+            r1 = String.valueOf(pe);
+            r2 = String.valueOf(t);
+
+            lblG.setText("$ " + r);
+            lblP.setText("$ " + r1);
+            lblT.setText("$ " + r2);
+        }
+
     }//GEN-LAST:event_cmdCalcularActionPerformed
 
     private void txtPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPKeyPressed
 
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-        String r, r1, r2;
-        double p, g, pe, t;
-        
-        p = Double.parseDouble(txtP.getText());
-        
-        g = (p * 40) / 100;
-        pe = (p * 30) / 100;
-        t = (p * 30) / 100;
-        
-        r = String.valueOf(g);
-        r1 = String.valueOf(pe);
-        r2 = String.valueOf(t);
-        
-        lblG.setText(r);
-        lblP.setText(r1);
-        lblT.setText(r2);    
+            if (txtP.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No Ha Ingresado El Presupuesto", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtP.requestFocusInWindow();
+            } else if (txtP.getText().equalsIgnoreCase("0")) {
+                JOptionPane.showMessageDialog(this, "El Prespuesto Debe Ser Superior A 0", "ERROR", JOptionPane.ERROR_MESSAGE);
+                txtP.requestFocusInWindow();
+                txtP.selectAll();
+            } else {
+                String r, r1, r2;
+                double p, g, pe, t;
+
+                p = Double.parseDouble(txtP.getText());
+
+                g = (p * 40) / 100;
+                pe = (p * 30) / 100;
+                t = (p * 30) / 100;
+
+                r = String.valueOf(g);
+                r1 = String.valueOf(pe);
+                r2 = String.valueOf(t);
+
+                lblG.setText("$ " + r);
+                lblP.setText("$ " + r1);
+                lblT.setText("$ " + r2);
+            }
+
         }
     }//GEN-LAST:event_txtPKeyPressed
+
+    private void txtPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPKeyTyped
+
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPKeyTyped
 
     /**
      * @param args the command line arguments
